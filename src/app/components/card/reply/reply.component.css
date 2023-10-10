@@ -1,0 +1,14 @@
+.container_reply {
+  display: flex;
+  align-items: center;
+}
+
+.container_reply > img {
+  padding: 5px;
+}
+
+.container_reply > p {
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--moderate-blue);
+}

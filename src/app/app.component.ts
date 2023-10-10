@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+  //VER SOBRE NG IF
   title = 'interative-comments-section-proj';
 }

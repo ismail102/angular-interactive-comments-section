@@ -1,0 +1,26 @@
+.container_author {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.container_author > img {
+  height: 40px;
+  margin-right: 20px;
+}
+
+.author_name {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.you {
+  background-color: var(--moderate-blue);
+  color: var(--white);
+  padding: 2px 5px;
+  margin-right: 10px;
+}
+
+.createdAt {
+  color: var(--grayish-blue);
+}

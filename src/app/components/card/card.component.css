@@ -1,0 +1,13 @@
+.container_card {
+  margin: 15px;
+  padding: 15px;
+  background-color: var(--white);
+  border-radius: 10px;
+}
+
+.card_upvotes-and-reply {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
