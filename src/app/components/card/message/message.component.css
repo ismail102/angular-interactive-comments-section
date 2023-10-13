@@ -2,3 +2,8 @@
   color: var(--grayish-blue);
   margin-top: 15px;
 }
+
+span {
+  color: var(--moderate-blue);
+  font-weight: bold;
+}

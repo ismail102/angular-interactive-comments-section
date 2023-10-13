@@ -1,3 +1,14 @@
-<app-card author="juliusomo"></app-card>
+<ng-container *ngIf="comments">
+
+  <div class="comments" *ngFor="let comment of comments">
+    <app-card [currentUser]="currentUser" [comment]="comment"></app-card>
+
+    <div class="replies" *ngIf="comment.replies.length > 0">
+      <div *ngFor="let reply of comment.replies">
+        <app-card [currentUser]="currentUser" [reply]="reply"></app-card>
+      </div>
+    </div>
+
+  </div>
+</ng-container>
 <app-comment-card></app-comment-card>
-<router-outlet></router-outlet>

@@ -1,0 +1,4 @@
+.replies {
+  border-left: 2px solid var(--light-grayish-blue);
+  margin-left: 15px;
+}

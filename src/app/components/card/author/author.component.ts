@@ -8,11 +8,22 @@ import { Component, Input, OnInit } from '@angular/core';
 export class AuthorComponent implements OnInit {
 
   @Input()
-  author: string = "";
+  author: string = '';
+
+  @Input()
+  authorImg: string = '';
+
+  @Input()
+  createdAt: string = '';
+
+  @Input()
+  isMyComment: boolean = false;
 
   constructor() { }
 
   ngOnInit(): void {
+
+    if(this.author === 'juliusomo') this.isMyComment = true;
   }
 
 }

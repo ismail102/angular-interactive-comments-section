@@ -4,27 +4,27 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CardComponent } from './components/card/card.component';
-import { AuthorComponent } from './components/card/author/author.component';
-import { MessageComponent } from './components/card/message/message.component';
-import { UpvotesComponent } from './components/card/upvotes/upvotes.component';
-import { ReplyComponent } from './components/card/reply/reply.component';
+
 import { CommentCardComponent } from './components/comment-card/comment-card.component';
+import { FormsModule } from '@angular/forms';
+import { CommentService } from './service/comment.service';
+import { CardModule } from './components/card/card.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     CardComponent,
-    AuthorComponent,
-    MessageComponent,
-    UpvotesComponent,
-    ReplyComponent,
     CommentCardComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    FormsModule,
+    AppRoutingModule,
+    CardModule,
   ],
-  providers: [],
+  providers: [
+    CommentService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

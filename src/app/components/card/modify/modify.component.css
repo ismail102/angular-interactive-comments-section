@@ -1,0 +1,31 @@
+.container_modify {
+  display: flex;
+}
+
+.delete, .edit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.delete > img, .edit > img {
+  margin-right: 10px;
+}
+
+.deleteBtn, .editBtn {
+  border: 0;
+  background-color: transparent;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.deleteBtn {
+  color: red;
+}
+
+.editBtn {
+  color: var(--moderate-blue);
+}
