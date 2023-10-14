@@ -2,3 +2,22 @@
   border-left: 2px solid var(--light-grayish-blue);
   margin-left: 15px;
 }
+
+@media screen and (min-width: 1024px) {
+  .container_app {
+    width: 70%;
+    margin: auto auto;
+  }
+
+  .replies {
+    border-left: 2px solid var(--light-grayish-blue);
+    margin-left: 100px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .container_app {
+    width: 800px;
+  }
+}
+

@@ -17,8 +17,8 @@
 }
 
 .text_area > textarea:focus {
-  border: 1px solid var(--light-gray);
-  border: none;
+  outline: 0;
+  border: 1px solid var(--moderate-blue);
 }
 
 .comment_info {
@@ -41,4 +41,44 @@
   color: var(--white);
   background-color: var(--moderate-blue);
   cursor: pointer;
+}
+
+.user_img, .send_btn {
+  display: none;
+}
+
+@media screen and (min-width: 1024px) {
+  .container_comment {
+    margin: 15px 15px 15px 50px;
+    display: flex;
+    justify-content: space-between;
+    flex-grow: stre;
+  }
+
+  .comment_info {
+    display: none;
+  }
+
+  .text_area {
+    width: 100%;
+  }
+
+  .user_img, .send_btn {
+    display: block;
+  }
+
+  .user_img > img {
+    height: 50px;
+    margin: 0px 10px 0 10px;
+  }
+
+  .send_btn > button {
+    background-color: var(--moderate-blue);
+    color: var(--white);
+    border: none;
+    padding: 15px 30px;
+    border-radius: 5px;
+    margin-left: 15px;
+    cursor: pointer;
+  }
 }

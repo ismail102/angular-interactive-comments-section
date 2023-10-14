@@ -21,6 +21,17 @@
   margin-right: 10px;
 }
 
+.delEditBtns {
+  display: none;
+}
+
 .createdAt {
   color: var(--grayish-blue);
+}
+
+@media screen and (min-width: 1024px) {
+  .delEditBtns {
+    display: block;
+    margin-left: auto;
+  }
 }

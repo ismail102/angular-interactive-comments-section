@@ -3,4 +3,12 @@
   <p class="author_name">{{ author }}</p>
   <p class="you" *ngIf="isMyComment">you</p>
   <p class="createdAt">{{ createdAt }}</p>
+  <div *ngIf="isMyComment; else replybtn" class="delEditBtns">
+    <app-modify></app-modify>
+  </div>
+  <ng-template #replybtn>
+    <div class="delEditBtns">
+      <app-reply></app-reply>
+    </div>
+  </ng-template>
 </div>

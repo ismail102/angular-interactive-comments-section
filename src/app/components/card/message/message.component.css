@@ -7,3 +7,9 @@ span {
   color: var(--moderate-blue);
   font-weight: bold;
 }
+
+@media screen and (min-width: 1024px) {
+  .container_message {
+    line-height: 22px;
+  }
+}
