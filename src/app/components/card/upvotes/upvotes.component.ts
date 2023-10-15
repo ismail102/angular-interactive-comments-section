@@ -9,7 +9,24 @@ export class UpvotesComponent implements OnInit {
   @Input()
   score: number = 0;
 
+  alreadyVoted: boolean = false;
+
   constructor() {}
 
   ngOnInit(): void {}
+
+  vote(param: string) {
+    if(param === 'up' && !this.alreadyVoted) {
+      this.score += 1;
+      this.alreadyVoted = true;
+      return;
+    }
+
+    if(param === 'down' && this.alreadyVoted) {
+      this.score -= 1;
+      this.alreadyVoted = false;
+      return;
+    }
+
+  }
 }
