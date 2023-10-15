@@ -14,18 +14,19 @@
   color: var(--moderate-blue);
 }
 
-.button_plus, .button_minus {
+.button_plus,
+.button_minus {
   cursor: pointer;
 }
 
-.button_plus > img, .button_minus > img {
+.button_plus > img,
+.button_minus > img {
   font-size: 20px;
   color: var(--light-grayish-blue);
   padding: 5px 10px;
   background-color: var(--very-light-gray);
   border: none;
 }
-
 
 @media screen and (min-width: 1024px) {
   .container_upvotes {

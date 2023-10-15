@@ -3,10 +3,9 @@ import { Component, Input, OnInit } from '@angular/core';
 @Component({
   selector: 'app-author',
   templateUrl: './author.component.html',
-  styleUrls: ['./author.component.css']
+  styleUrls: ['./author.component.css'],
 })
 export class AuthorComponent implements OnInit {
-
   @Input()
   author: string = '';
 
@@ -19,11 +18,9 @@ export class AuthorComponent implements OnInit {
   @Input()
   isMyComment: boolean = false;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
-
-    if(this.author === 'juliusomo') this.isMyComment = true;
+    if (this.author === 'juliusomo') this.isMyComment = true;
   }
-
 }

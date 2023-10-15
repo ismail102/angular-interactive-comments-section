@@ -11,20 +11,9 @@ import { CommentService } from './service/comment.service';
 import { CardModule } from './components/card/card.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    CardComponent,
-    CommentCardComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    AppRoutingModule,
-    CardModule,
-  ],
-  providers: [
-    CommentService
-  ],
-  bootstrap: [AppComponent]
+  declarations: [AppComponent, CardComponent, CommentCardComponent],
+  imports: [BrowserModule, FormsModule, AppRoutingModule, CardModule],
+  providers: [CommentService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

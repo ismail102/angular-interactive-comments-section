@@ -28,11 +28,11 @@
   margin-top: 10px;
 }
 
-.comment_info > img{
+.comment_info > img {
   height: 40px;
 }
 
-.comment_info > button{
+.comment_info > button {
   height: 50px;
   padding: 0 30px;
   font-weight: 500;
@@ -43,7 +43,8 @@
   cursor: pointer;
 }
 
-.user_img, .send_btn {
+.user_img,
+.send_btn {
   display: none;
 }
 
@@ -63,7 +64,8 @@
     width: 100%;
   }
 
-  .user_img, .send_btn {
+  .user_img,
+  .send_btn {
     display: block;
   }
 

@@ -12,17 +12,15 @@ import { UpvotesComponent } from './upvotes/upvotes.component';
     MessageComponent,
     ModifyComponent,
     ReplyComponent,
-    UpvotesComponent
+    UpvotesComponent,
   ],
-  imports: [
-    CommonModule
-  ],
+  imports: [CommonModule],
   exports: [
     AuthorComponent,
     MessageComponent,
     ModifyComponent,
     ReplyComponent,
-    UpvotesComponent
-  ]
+    UpvotesComponent,
+  ],
 })
-export class CardModule { }
+export class CardModule {}

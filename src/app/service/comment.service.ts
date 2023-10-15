@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { dataFake } from 'src/data/data';
 
-import { Comment } from 'src/app/models/comment'
+import { Comment } from 'src/app/models/comment';
 import { User } from '../models/user';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CommentService {
   comments: Comment[];

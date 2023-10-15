@@ -1,4 +1,4 @@
-import { User } from "./user";
+import { User } from './user';
 
 export default interface Reply {
   id: number;

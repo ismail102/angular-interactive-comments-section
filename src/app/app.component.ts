@@ -6,10 +6,9 @@ import { User } from './models/user';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-
   //data: any = dataFake;
   //user: User = dataFake.currentUser;
 
@@ -17,14 +16,13 @@ export class AppComponent {
   comments: Comment[];
 
   constructor(private commentService: CommentService) {
-   //console.log(this.user);
-   this.currentUser = commentService.getUser();
-   this.comments = commentService.getAllComments();
+    //console.log(this.user);
+    this.currentUser = commentService.getUser();
+    this.comments = commentService.getAllComments();
   }
 
   ngOnInit(): void {
     console.log('currentuser', this.currentUser);
     console.log('comments', this.comments);
   }
-
 }

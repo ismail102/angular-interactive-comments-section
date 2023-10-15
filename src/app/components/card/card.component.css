@@ -27,12 +27,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 20px 30px 30px 15px ;
+    margin: 20px 30px 30px 15px;
   }
 
   .card_upvotes-and-reply {
     display: none;
   }
-
-
 }
