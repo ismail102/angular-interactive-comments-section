@@ -9,9 +9,10 @@ import { CommentCardComponent } from './components/comment-card/comment-card.com
 import { FormsModule } from '@angular/forms';
 import { CommentService } from './service/comment.service';
 import { CardModule } from './components/card/card.module';
+import { ChartComponent } from './chart/chart.component';
 
 @NgModule({
-  declarations: [AppComponent, CardComponent, CommentCardComponent],
+  declarations: [AppComponent, CardComponent, CommentCardComponent, ChartComponent],
   imports: [BrowserModule, FormsModule, AppRoutingModule, CardModule],
   providers: [CommentService],
   bootstrap: [AppComponent],
