@@ -1,8 +1,6 @@
 
 <div class="container_app">
-  <div class="chart-body">
-    <app-chart></app-chart>
-  </div>
+  <app-chart></app-chart>
   <ng-container *ngIf="comments">
     <div class="comments" *ngFor="let comment of comments">
       <app-card [currentUser]="currentUser" [comment]="comment"></app-card>

@@ -3,13 +3,6 @@
   margin-left: 15px;
 }
 
-.chart-body {
-  margin-left: 50px;
-  padding: 15px;
-  border-radius: 10px;
-  background-color: var(--white);
-}
-
 @media screen and (min-width: 1024px) {
   .container_app {
     width: 70%;

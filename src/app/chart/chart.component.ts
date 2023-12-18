@@ -29,44 +29,43 @@ export class ChartComponent implements OnInit {
 
     let colors = ['black', 'red', 'cyan', 'green', 'blue', 'pink', 'gray', 'yellow']
 
-    const timeLabels = []; // Array to store timestamps
-    const labelData = []; // Array to store label data
+    const data = [
+      { x: '2023-01-01 12:00:00', y: 10 }, // Sample data with ISO date format
+      { x: '2023-01-02 14:30:00', y: 15 },
+      { x: '2023-01-03 16:45:00', y: 8 },
+      // Add more data points as needed
+    ]
 
-    // Generating sample data for demonstration
-    for (let i = 0; i < 8; i++) {
-      timeLabels.push(`2023-12-${i + 1 < 10 ? '0' + (i + 1) : i + 1}`);
-      labelData.push([
-        Math.floor(Math.random() * 20) + 5,
-        Math.floor(Math.random() * 20) + 10,
-        Math.floor(Math.random() * 20) + 15
-      ]);
-    }
+    // // Create datasets for each label
+    // const datasets = labelData.map((data, index) => ({
+    //   label: `Label ${index + 1}`, // Label name
+    //   data: data,
+    //   borderColor: this.getRandomColor(), // Get random color for each label
+    //   // backgroundColor: 'transparent',
+    //   // Add more styling or configurations as needed
+    // }));
 
-    // Create datasets for each label
-    const datasets = labelData.map((data, index) => ({
-      label: `Label ${index + 1}`, // Label name
-      data: data,
-      borderColor: this.getRandomColor(), // Get random color for each label
-      // backgroundColor: 'transparent',
-      // Add more styling or configurations as needed
-    }));
-
-    console.log(timeLabels)
-    console.log(datasets)
+    // console.log(timeLabels)
+    // console.log(datasets)
 
   
     this.chart = new Chart("MyChart", {
       type: 'line', //this denotes tha type of chart
-      data: {// values on X-Axis
-          labels: timeLabels,
-          datasets: datasets
+      data: {
+        datasets: [{
+          label: 'Time Series Data',
+          data: data.map(entry => ({ x: new Date(entry.x), y: entry.y })),
+          borderColor: 'blue',
+          fill: false,
+        }]
       },
       options: {
-        aspectRatio:2.5,
+        responsive: true,
         scales: {
           x: {
-              min: '2023-12-01',
-            }
+            min: '2023-01-01T12:00:00'
+          },
+          // Configure other axes if needed (e.g., y-axis)
         }
       }
     });
