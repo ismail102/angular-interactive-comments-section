@@ -10,11 +10,13 @@ import { FormsModule } from '@angular/forms';
 import { CommentService } from './service/comment.service';
 import { CardModule } from './components/card/card.module';
 import { ChartComponent } from './chart/chart.component';
+import { ApiService } from './service/api.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent, CardComponent, CommentCardComponent, ChartComponent],
-  imports: [BrowserModule, FormsModule, AppRoutingModule, CardModule],
-  providers: [CommentService],
+  imports: [HttpClientModule,BrowserModule, FormsModule, AppRoutingModule, CardModule],
+  providers: [CommentService, ApiService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

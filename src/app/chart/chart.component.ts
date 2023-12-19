@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ChartOptions, Color } from 'chart.js';
 
 import { Chart } from 'chart.js/auto';
+import { ApiService } from '../service/api.service';
 //or
 // import {Chart} from 'chart.js';
 
@@ -14,60 +15,75 @@ import { Chart } from 'chart.js/auto';
 export class ChartComponent implements OnInit {
 
   public chart: any;
+  labels = ["approval","toxic","obscene", 'insult', "threat", "hate", "offensive", "neither"];
+  data = [0,0,0,0,0,0,0,0];
 
-  constructor() { }
+  constructor(private apiService: ApiService ) { }
 
   ngOnInit(): void {
-    this.createChart();
+    this.createChart(this.data);
   }
 
   getRandomColor() {
     return '#' + Math.floor(Math.random() * 16777215).toString(16);
   }
 
-  createChart(){
-
-    let colors = ['black', 'red', 'cyan', 'green', 'blue', 'pink', 'gray', 'yellow']
-
-    const data = [
-      { x: '2023-01-01 12:00:00', y: 10 }, // Sample data with ISO date format
-      { x: '2023-01-02 14:30:00', y: 15 },
-      { x: '2023-01-03 16:45:00', y: 8 },
-      // Add more data points as needed
-    ]
-
-    // // Create datasets for each label
-    // const datasets = labelData.map((data, index) => ({
-    //   label: `Label ${index + 1}`, // Label name
-    //   data: data,
-    //   borderColor: this.getRandomColor(), // Get random color for each label
-    //   // backgroundColor: 'transparent',
-    //   // Add more styling or configurations as needed
-    // }));
-
-    // console.log(timeLabels)
-    // console.log(datasets)
-
-  
-    this.chart = new Chart("MyChart", {
-      type: 'line', //this denotes tha type of chart
-      data: {
-        datasets: [{
-          label: 'Time Series Data',
-          data: data.map(entry => ({ x: new Date(entry.x), y: entry.y })),
-          borderColor: 'blue',
-          fill: false,
-        }]
+  onchange(event: any) {
+    console.log(event.target.value)
+      this.apiService.getApiData(event.target.value).subscribe(
+      (data: any) => {
+        // console.log("Scores: ", data)
+        this.updateChart(data.tscores)
       },
-      options: {
-        responsive: true,
-        scales: {
-          x: {
-            min: '2023-01-01T12:00:00'
-          },
-          // Configure other axes if needed (e.g., y-axis)
+      (err) => {
+        console.log('!Error: ', err);
+      }
+    );
+  }
+
+  createChart(data: any[]) {
+    // Sample data for the bar chart
+    let barData = {
+      labels: this.labels,
+      datasets: [{
+        label: 'Current Trend',
+        data: data,
+        backgroundColor: 'rgba(75, 192, 192, 0.2)', // Background color of bars
+        borderColor: 'rgba(75, 192, 192, 1)', // Border color of bars
+        borderWidth: 1 // Border width of bars
+      }]
+    };
+  
+    // Bar chart configuration
+    let options = {
+      scales: {
+        y: {
+          beginAtZero: true
         }
       }
+    };
+    
+    // Create the bar chart
+    this.chart = new Chart('MyChart', {
+      type: 'bar',
+      data: barData,
+      options: options
     });
+  }
+
+  updateChart(data: any[]) {
+    // console.log(this.chart)
+    let barData = {
+      labels: this.labels,
+      datasets: [{
+        label: 'Current Trend',
+        data: data,
+        backgroundColor: 'rgba(75, 192, 192, 0.2)', // Background color of bars
+        borderColor: 'rgba(75, 192, 192, 1)', // Border color of bars
+        borderWidth: 1 // Border width of bars
+      }]
+    };
+    this.chart.data = barData;
+    this.chart.update();
   }
 }
