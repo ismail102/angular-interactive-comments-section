@@ -1,15 +1,31 @@
 <div class="chart-container">
-    <canvas  id="MyChart" >{{ chart }}</canvas>
+    <!-- <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="trend" value="trend" (input)="onchangeGraph($event)"> Trend
+    </div>
 
+    <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="polarity" value="polarity" (input)="onchangeGraph($event)"> Sentiment
+    </div> -->
+
+    <input type="radio" class="btn-check" name="options-base" id="option5" value="trend"
+    autocomplete="off" (input)="onchangeGraph($event)" checked>
+    <label class="btn" for="option5">Trend</label>
+
+    <input type="radio" class="btn-check" name="options-base" id="option6" value="polarity"
+    autocomplete="off" (input)="onchangeGraph($event)">
+    <label class="btn" for="option6">Sentiment</label>
+
+    <canvas  id="MyChart" >{{ chart }}</canvas>
     <div class="slidecontainer range-container">
         <!-- <p>Slide both direction</p> -->
         <input [ngStyle]="{'background-color': progressColor}" class="slider-input" type="range" min="1" max="77" value="0" (change)="onchange($event)" [title]="tooltipText">
         <div class="range-scale">
+            <!-- <span *ngFor="let tick of ticks">{{tick/10}}h</span> -->
             <span>0</span>
-            <span>2 hours</span>
-            <span>5 hours</span>
-            <span>7 hours</span>
-            <span>10 hours</span>
+            <span>2h</span>
+            <span>5h</span>
+            <span>7h</span>
+            <span>10h</span>
         </div>
         <div *ngFor="let tick of ticks">
             <div class="tick-mark" [style.left]="(tick) + '%'"></div>

@@ -5,11 +5,20 @@
     background-color: var(--white);
   }
 
+  input[type="radio"] {
+    margin-left: 5px; 
+  }
+  label {
+    font-weight: bold;
+    color: #333;
+  }
+
 .slider-input {
     width: 100%;
     /* margin: 50px;
     padding: 15px; */
 }
+
 input[type="range"] {
   -webkit-appearance: none; /* Remove default styling (for WebKit/Blink browsers) */
   width: 100%;
@@ -63,5 +72,5 @@ input[type="range"]::-webkit-slider-thumb {
     height: 8px;
     width: 1px;
     background-color: #333;
-    top: -4px;
+    bottom: 30px;
   }
