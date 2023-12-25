@@ -25,6 +25,6 @@ export class AppComponent {
 
   ngOnInit(): void {
     console.log('currentuser', this.currentUser);
-    console.log('comments', this.comments);
+    // console.log('comments', this.comments);
   }
 }

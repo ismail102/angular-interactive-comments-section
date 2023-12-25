@@ -29,9 +29,21 @@ import {
       return this.http.post<any>(API_URL, obj);
     }
   
-    // Post Data
+    // Emotion Trend and Polarity Scores
     getApiData(id: number): Observable<any> {
       let API_URL = `${this.REST_API}/data/${id}`;
+
+      return this.http.get(API_URL).pipe(
+        map((res: any) => {
+          return res || {};
+        })
+        // catchError(this.handleError)
+      );
+    }
+
+    // Single Trend Data
+    getSingleTrend(trend: string): Observable<any> {
+      let API_URL = `${this.REST_API}/data/single-trend/${trend}`;
 
       return this.http.get(API_URL).pipe(
         map((res: any) => {

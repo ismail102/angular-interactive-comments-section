@@ -1,24 +1,76 @@
 <div class="chart-container">
-    <!-- <div class="form-check form-check-inline">
-    <input class="form-check-input" type="radio" name="trend" value="trend" (input)="onchangeGraph($event)"> Trend
+    <div class="d-flex justify-content-between">
+        <div [hidden]="isLine">
+            <input type="radio" class="btn-check" name="options-base" id="emotion" value="emotion"
+            autocomplete="off" (change)="onchangeGraph($event)" checked>
+            <label class="btn" for="emotion">Emotion</label>
+        
+            <input type="radio" class="btn-check" name="options-base" id="trend" value="trend"
+            autocomplete="off" (change)="onchangeGraph($event)">
+            <label class="btn" for="trend">Trend</label>
+        
+            <input type="radio" class="btn-check" name="options-base" id="polarity" value="polarity"
+            autocomplete="off" (change)="onchangeGraph($event)">
+            <label class="btn" for="polarity">Sentiment</label>
+        </div>
+        <div [hidden]="!isLine">
+            <input type="radio" class="btn-check" name="options-base" id="option1" value="approval"
+            autocomplete="off" (change)="getSingleTrend($event)" checked>
+            <label class="btn" for="option1">Approval</label>
+        
+            <input type="radio" class="btn-check" name="options-base" id="option2" value="toxic"
+            autocomplete="off" (change)="getSingleTrend($event)">
+            <label class="btn" for="option2">Toxic</label>
+        
+            <input type="radio" class="btn-check" name="options-base" id="option3" value="obscene"
+            autocomplete="off" (change)="getSingleTrend($event)">
+            <label class="btn" for="option3">Obsence</label>
+
+            <input type="radio" class="btn-check" name="options-base" id="option4" value="insult"
+            autocomplete="off" (change)="getSingleTrend($event)">
+            <label class="btn" for="option4">Insult</label>
+
+            <input type="radio" class="btn-check" name="options-base" id="option5" value="threat"
+            autocomplete="off" (change)="getSingleTrend($event)">
+            <label class="btn" for="option5">Threat</label>
+
+            <input type="radio" class="btn-check" name="options-base" id="option6" value="hate"
+            autocomplete="off" (change)="getSingleTrend($event)">
+            <label class="btn" for="option6">Hate</label>
+
+            <input type="radio" class="btn-check" name="options-base" id="option7" value="offensive"
+            autocomplete="off" (change)="getSingleTrend($event)">
+            <label class="btn" for="option7">Offensive</label>
+
+            <input type="radio" class="btn-check" name="options-base" id="option8" value="neither"
+            autocomplete="off" (change)="getSingleTrend($event)">
+            <label class="btn" for="option8">Neither</label>
+        </div>
+        <div class="d-flex justify-content-end">
+            <select class="form-select" aria-label="Default select example" (change)="onChangeSelectOption($event)">
+                <option value="1" selected>Overall</option>
+                <option value="2">Trend Wise</option>
+            </select>
+            <div>
+                <button type="button" class="btn btn-light">
+                    <img *ngIf="!isPlay" src="assets/img/play.svg" alt="" width="32" height="32" (click)="onClickPlay(0)">
+                    <img *ngIf="isPlay" src="assets/img/pause.svg" alt="" width="32" height="32" (click)="onClickPlay(1)">
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div [hidden]="isLine">
+        <canvas id="MyChart1" >{{ chartBar }}</canvas>
     </div>
 
-    <div class="form-check form-check-inline">
-    <input class="form-check-input" type="radio" name="polarity" value="polarity" (input)="onchangeGraph($event)"> Sentiment
-    </div> -->
-
-    <input type="radio" class="btn-check" name="options-base" id="option5" value="trend"
-    autocomplete="off" (input)="onchangeGraph($event)" checked>
-    <label class="btn" for="option5">Trend</label>
-
-    <input type="radio" class="btn-check" name="options-base" id="option6" value="polarity"
-    autocomplete="off" (input)="onchangeGraph($event)">
-    <label class="btn" for="option6">Sentiment</label>
-
-    <canvas  id="MyChart" >{{ chart }}</canvas>
+    <div [hidden]="!isLine">
+        <canvas id="MyChart2" >{{ chartLine }}</canvas>
+    </div>
+    
     <div class="slidecontainer range-container">
         <!-- <p>Slide both direction</p> -->
-        <input [ngStyle]="{'background-color': progressColor}" class="slider-input" type="range" min="1" max="77" value="0" (change)="onchange($event)" [title]="tooltipText">
+        <input [(ngModel)]="progressValue" [ngStyle]="{'background-color': progressColor}" class="slider-input" type="range" min="0" max="117" value="0" (change)="onchange($event)" [title]="tooltipText">
         <div class="range-scale">
             <!-- <span *ngFor="let tick of ticks">{{tick/10}}h</span> -->
             <span>0</span>

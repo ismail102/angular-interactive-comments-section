@@ -10,9 +10,10 @@ import math
 import json
 import os
 warnings.filterwarnings('ignore')
-parent_path = 'C:\\Users\\SIU856533724\\OneDrive - Southern Illinois University\Research\\Paper\\Social Networks\\Trend Prediction\\Comment-Section-UI\\UI\\angular-interactive-comments-section\\src\\data'
-
 from common_function import get_emotions, get_sentiment_dict
+
+parent_path = 'C:\\Users\\SIU856533724\\OneDrive - Southern Illinois University\Research\\Paper\\Social Networks\\Trend Prediction\\Comment-Section-UI\\UI\\angular-interactive-comments-section\\flask\\data'
+
 emotions = list(get_emotions().values())
 trends = ["approval","toxic","obscene", 'insult', "threat", "hate", "offensive", "neither"]
 sentiment_dict = get_sentiment_dict()
@@ -33,8 +34,8 @@ def sum_elements_by_indices(input_list, indices):
     total = sum(input_list[i] for i in indices)
     return total
 
-df_emotion = pd.read_csv(os.path.join(parent_path, 'fox-college-students-threatened-punishment-emotions.csv'))
-df_trend = pd.read_csv(os.path.join(parent_path, 'fox-college-students-threatened-punishment-trends.csv'))
+df_emotion = pd.read_csv(os.path.join(parent_path, 'fox-unknown-emotions.csv'))
+df_trend = pd.read_csv(os.path.join(parent_path, 'fox-unknown-trends.csv'))
 
 positive_indices = find_indices(sentiment_dict['positive'], emotions)
 negative_indices = find_indices(sentiment_dict['negative'], emotions)
@@ -42,6 +43,7 @@ ambiguous_indices = find_indices(sentiment_dict['ambiguous'], emotions)
 neutral_indices = find_indices(sentiment_dict['neutral'], emotions)
 
 def get_emotion_score(comment_id):
+    # print("Comment ID:", comment_id)
     row_index = df_emotion.loc[df_emotion['id'] == comment_id].index[0]
     scores = df_emotion.iloc[row_index][2:]
     return list(scores)
@@ -317,70 +319,55 @@ def travers_reply_tree(comment_json):
         reply_tree[i] = replyTree(json)
     return reply_tree
 
-def get_aggregated_tree_data(files, so_far_comments):
+def get_aggregated_tree_data(file, so_far_comments):
     method = 'method3'
-    comment_jsons = []
-    for file in files:
-        with open(os.path.join(parent_path, file)) as f:
-            comment_json = json.load(f)
-            comment_jsons.append(comment_json)
+    with open(os.path.join(parent_path, file)) as f:
+        comment_json = json.load(f)
 
-    multiple_tree_final_escores = []
-    multiple_tree_final_tscores = []
-    multiple_tree_final_polarity = []
+    reply_tree = travers_reply_tree(comment_json['comments'])
+    # print("reply tree:", replyTree)
 
-    for comment_json in comment_jsons:
-        reply_tree = travers_reply_tree(comment_json['comments'])
+    for i, id, in enumerate(comment_json['comments']):
+        RECUR(reply_tree[i], method, 0, so_far_comments)
 
-        for i, id, in enumerate(comment_json['comments']):
-            RECUR(reply_tree[i], method, 0, so_far_comments)
+    # print("Max Depth: ", max_depth)
+    # print("Max replies: ", max_children)
+    # max_depth = 0
+    # max_children = 0
+    # total_node = 0
 
-        # print("Max Depth: ", max_depth)
-        # print("Max replies: ", max_children)
-        # max_depth = 0
-        # max_children = 0
-        # total_node = 0
+    # First level comment aggregation
+    escores = []
+    tscores = []
 
-        # First level comment aggregation
-        escores = []
-        tscores = []
+    for i, id, in enumerate(comment_json['comments']):
+        # print(f"Comment# {i}: {reply_tree[i].text}")
+        Ae = list(reply_tree[i].e_scores)
+        escores.append(Ae)
+        At = list(reply_tree[i].t_scores)
+        tscores.append(At)
 
-        for i, id, in enumerate(comment_json['comments']):
-            # print(f"Comment# {i}: {reply_tree[i].text}")
-            Ae = list(reply_tree[i].e_scores)
-            escores.append(Ae)
+    final_escore = Aggregation(escores, method, 28)
+    final_polarity = get_polarity_score(final_escore)
+    final_tscore = Aggregation(tscores, method, 8)
 
-            At = list(reply_tree[i].t_scores)
-            tscores.append(At)
-
-        final_score = Aggregation(escores, method, 28)
-        multiple_tree_final_escores.append(list(final_score))
-
-        p = get_polarity_score(final_score)
-        multiple_tree_final_polarity.append(p)
-
-        final_score = Aggregation(tscores, method, 8)
-        multiple_tree_final_tscores.append(list(final_score))
-
-    return multiple_tree_final_escores, multiple_tree_final_tscores, multiple_tree_final_polarity
+    return final_escore, final_tscore, final_polarity
 
 
 # Final Aggregated Results
 def get_emotion_trends_polarity(so_far_comments):
-    files = ['fox-college-students-threatened-punishment.json']
+    file = 'fox-unknown.json'
     # print("so far comments: ", so_far_comments)
-    final_escores, final_tscores, final_polarity = get_aggregated_tree_data(files, so_far_comments)
+    final_escore, final_tscore, final_polarity = get_aggregated_tree_data(file, so_far_comments)
 
-    for final_score in final_escores:
-        df_emotion = pd.DataFrame([final_score], columns=emotions)
+    df_emotion = pd.DataFrame([final_escore], columns=emotions)
 
-    for final_score in final_tscores:
-        df_trend = pd.DataFrame([final_score], columns=trends)
+    df_trend = pd.DataFrame([final_tscore], columns=trends)
 
-    for final_score in final_polarity:
-        df_polar = pd.DataFrame([final_score], columns=sentiments)
+    df_polar = pd.DataFrame([final_polarity], columns=sentiments)
 
     return list(df_emotion.iloc[0]), list(df_trend.iloc[0]), list(df_polar.iloc[0])
 
 if __name__ == '__main__':
     print("#Score Aggregation")
+    # get_emotion_trends_polarity([32,110,90])
