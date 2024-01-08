@@ -261,14 +261,12 @@ export class ChartComponent implements OnInit {
       let color = this.colors1[idx]
       this.progressColor = color;
       this.tooltipText = 'Comment section is going towards ' + this.trend_labels[idx];
-      this.chartBar.data.datasets[0].backgroundColor = this.colors1[idx];
       this.chartBar.options.plugins.legend.display = false;
     }
     else {
       let color = this.colors2[idx]
       this.progressColor = color;
       this.tooltipText = 'Comment section is going towards ' + this.polarity_labels[idx];
-      this.chartBar.data.datasets[0].backgroundColor = this.colors2[idx];
       this.chartBar.options.plugins.legend.display = false;
     }
   }
