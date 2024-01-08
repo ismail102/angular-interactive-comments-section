@@ -1,11 +1,4 @@
 {
-    "currentUser": {
-        "image": {
-            "png": "./assets/images/avatars/user1.png",
-            "webp": "./assets/images/avatars/user1.webp"
-        },
-        "username": "juliusomo"
-    },
     "comments": [
         {
             "id": 1,

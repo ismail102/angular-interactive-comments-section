@@ -70,14 +70,14 @@
     
     <div class="slidecontainer range-container">
         <!-- <p>Slide both direction</p> -->
-        <input [(ngModel)]="progressValue" [ngStyle]="{'background-color': progressColor}" class="slider-input" type="range" min="0" max="117" value="0" (change)="onchange($event)" [title]="tooltipText">
+        <input [(ngModel)]="progressValue" [ngStyle]="{'background-color': progressColor}" class="slider-input" type="range" min="0" max="1064" value="0" (change)="onchangeProgress($event)" [title]="tooltipText">
         <div class="range-scale">
             <!-- <span *ngFor="let tick of ticks">{{tick/10}}h</span> -->
             <span>0</span>
             <span>2h</span>
             <span>5h</span>
             <span>7h</span>
-            <span>10h</span>
+            <span><strong>&#8734;</strong></span>
         </div>
         <div *ngFor="let tick of ticks">
             <div class="tick-mark" [style.left]="(tick) + '%'"></div>

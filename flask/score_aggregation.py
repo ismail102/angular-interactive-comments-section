@@ -1,7 +1,7 @@
 
 import torch
 import os
-from transformers import AutoTokenizer, AutoModel
+# from transformers import AutoTokenizer, AutoModel
 import torch.nn as nn
 import pandas as pd
 import warnings
@@ -12,7 +12,8 @@ import os
 warnings.filterwarnings('ignore')
 from common_function import get_emotions, get_sentiment_dict
 
-parent_path = 'C:\\Users\\SIU856533724\\OneDrive - Southern Illinois University\Research\\Paper\\Social Networks\\Trend Prediction\\Comment-Section-UI\\UI\\angular-interactive-comments-section\\flask\\data'
+file_name = 'fox-new-york-could-face'
+parent_path = 'C:\\Users\\ismai\\Documents\\Comment-Section-UI\\angular-interactive-comments-section\\flask\\data'
 
 emotions = list(get_emotions().values())
 trends = ["approval","toxic","obscene", 'insult', "threat", "hate", "offensive", "neither"]
@@ -34,8 +35,8 @@ def sum_elements_by_indices(input_list, indices):
     total = sum(input_list[i] for i in indices)
     return total
 
-df_emotion = pd.read_csv(os.path.join(parent_path, 'fox-unknown-emotions.csv'))
-df_trend = pd.read_csv(os.path.join(parent_path, 'fox-unknown-trends.csv'))
+df_emotion = pd.read_csv(os.path.join(parent_path, f'{file_name}-emotions.csv'))
+df_trend = pd.read_csv(os.path.join(parent_path, f'{file_name}-trends.csv'))
 
 positive_indices = find_indices(sentiment_dict['positive'], emotions)
 negative_indices = find_indices(sentiment_dict['negative'], emotions)
@@ -356,7 +357,7 @@ def get_aggregated_tree_data(file, so_far_comments):
 
 # Final Aggregated Results
 def get_emotion_trends_polarity(so_far_comments):
-    file = 'fox-unknown.json'
+    file = f'{file_name}.json'
     # print("so far comments: ", so_far_comments)
     final_escore, final_tscore, final_polarity = get_aggregated_tree_data(file, so_far_comments)
 

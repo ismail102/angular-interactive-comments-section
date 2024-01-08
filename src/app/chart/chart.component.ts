@@ -69,22 +69,33 @@ export class ChartComponent implements OnInit {
       'value': 0
     }
   };
+  public lineData: any;
+
   constructor(private apiService: ApiService ) { }
 
   ngOnInit(): void {
     this.isLine = 0;
     this.createChart(this.data0);
-    this.onchange();
+    this.onchangeProgress();
   }
 
-  onchange(event?: any) {
+  onchangeProgress(event?: any) {
     if (event != null && event != undefined) {
         this.currentProgressBarPoint = event
     }
     // this.progressValue = event.target.value;
     console.log("ith comment:", this.currentProgressBarPoint.target.value)
 
-      this.apiService.getApiData(this.currentProgressBarPoint.target.value).subscribe(
+    if (this.isLine == 0) {
+      this.getBarData();
+    } 
+    else {
+      this.getLineData();
+    }
+  }
+
+  getBarData() {
+    this.apiService.getApiData(this.currentProgressBarPoint.target.value).subscribe(
       (data: any) => {
         // console.log("Scores: ", data)
         if(this.type==0) {
@@ -118,6 +129,52 @@ export class ChartComponent implements OnInit {
       }
     );
   }
+
+  getLineData(event?:any) {
+    // console.log("line Event: ", event);
+    if (event != null && event != undefined) {
+      this.apiService.getSingleTrend(event.target.value).subscribe(
+        (data: any) => {
+          this.lineData = data;
+          let labels = []
+          for (let i = 0; i < data.singletrend.length; i++) {
+            labels.push('');
+          }
+          let lineData = {
+            labels: labels,
+            datasets: [{
+              label: '',
+              data: data.singletrend.slice(0, this.currentProgressBarPoint.target.value),  //plum, pear,
+              backgroundColor: 'rgb(75, 192, 192)',
+              borderColor: this.colors1[this.trend_labels.indexOf(event.target.value)],
+              tension: 0.1, // Curve tension of the line (0 is linear)
+              fill: false // Do not fill area under the line
+            }]
+          };
+          this.chartLine.data = lineData;
+          this.chartLine.update();
+      });
+    } else {
+      // let labels = []
+      // for (let i = 0; i < this.lineData.singletrend.length; i++) {
+      //   labels.push('');
+      // }
+      // let lineData = {
+      //   labels: labels,
+      //   datasets: [{
+      //     label: '',
+      //     data: this.lineData.singletrend.slice(this.currentProgressBarPoint.target.value),  //plum, pear,
+      //     backgroundColor: 'rgb(75, 192, 192)',
+      //     borderColor: this.colors1[this.trend_labels.indexOf(event.target.value)],
+      //     tension: 0.1, // Curve tension of the line (0 is linear)
+      //     fill: false // Do not fill area under the line
+      //   }]
+      // };
+      this.chartLine.data.datasets[0].data = this.lineData.singletrend.slice(0, this.currentProgressBarPoint.target.value);
+      this.chartLine.update();
+    }
+  }
+
   createChart(data: any[]) {
     console.log("Is line: ", this.isLine);
     // Sample data for the bar chart
@@ -225,8 +282,9 @@ export class ChartComponent implements OnInit {
       this.chartBar.data.datasets[0].backgroundColor = this.colors2
       // this.updateChart(this.data2);
     }
+
     console.log("Progress Bar Point:", this.currentProgressBarPoint);
-    this.onchange(this.currentProgressBarPoint);
+    this.onchangeProgress(this.currentProgressBarPoint);
   }
 
   onClickPlay(value: number) {
@@ -240,8 +298,8 @@ export class ChartComponent implements OnInit {
         this.interval = setInterval(() => {
         this.moveProgressBar();
         this.currentProgressBarPoint['target']['value'] = this.progressValue;
-        this.onchange(this.currentProgressBarPoint);
-      }, 500);
+        this.onchangeProgress(this.currentProgressBarPoint);
+      }, 100);
     }
     else {
       clearInterval(this.interval);
@@ -270,25 +328,8 @@ export class ChartComponent implements OnInit {
   }
 
   getSingleTrend(event: any) {
-    this.apiService.getSingleTrend(event.target.value).subscribe(
-      (data: any) => {
-        let labels = []
-        for (let i=0;i<data.singlerend.length;i++) {
-          labels.push('');
-        }
-        let lineData = {
-          labels: labels,
-          datasets: [{
-            label: '',
-            data: data.singlerend,
-            backgroundColor: 'rgb(75, 192, 192)',
-            borderColor: this.colors1[this.trend_labels.indexOf(event.target.value)],
-            tension: 0.1, // Curve tension of the line (0 is linear)
-            fill: false // Do not fill area under the line
-          }]
-        };
-        this.chartLine.data = lineData;
-        this.chartLine.update();
-      });
+    // this.progressValue = event.target.value;
+    console.log("ith comment:", this.currentProgressBarPoint.target.value)
+    this.getLineData(event);
   }
 }
