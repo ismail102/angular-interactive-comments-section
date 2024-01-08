@@ -1,6 +1,23 @@
-<div class="container_reply">
-  <button class="replyBtn">
+<div *ngIf="!isTextArea" class="container_reply">
+  <button class="replyBtn" (click)="onReply()">
     <img src="../../../../assets/images/icon-reply.svg" alt="" srcset="" />
     Reply
   </button>
+</div>
+
+<div *ngIf="isTextArea" class="container_comment">
+  <div class="user_img">
+    <img src="../../../assets/images/avatars/image-juliusomo.png" alt="" />
+  </div>
+  <div class="text_area">
+    <textarea placeholder="Add a comment..."></textarea>
+  </div>
+  <!-- <div class="send_btn">
+    <button>SEND</button>
+  </div> -->
+  <div>
+    <!-- <img src="../../../assets/images/avatars/image-juliusomo.png" alt="" /> -->
+    <button type="button" class="btn btn-primary btn-sm ">Reply</button>
+    <button type="button" class="btn btn-secondary btn-sm" (click)="onCancel()">Cancel</button>
+  </div>
 </div>

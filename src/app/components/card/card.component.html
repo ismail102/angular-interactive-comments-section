@@ -22,7 +22,7 @@
       </ng-template>
 
       <div class="card_upvotes-and-reply">
-        <app-upvotes [score]="comment.score || reply.score"></app-upvotes>
+        <!-- <app-upvotes [score]="comment.score || reply.score"></app-upvotes> -->
         <app-modify
           *ngIf="
             comment.user.username == currentUser.username ||
@@ -31,7 +31,7 @@
           "
         ></app-modify>
         <ng-template #replyBtn>
-          <app-reply></app-reply>
+          <app-reply [parentComment]="comment"></app-reply>
         </ng-template>
       </div>
     </div>

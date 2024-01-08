@@ -13,6 +13,9 @@
             autocomplete="off" (change)="onchangeGraph($event)">
             <label class="btn" for="polarity">Sentiment</label>
         </div>
+
+        <!-- <div [ngStyle]="{'color': progressColor}"> Current Trend </div> -->
+
         <div [hidden]="!isLine">
             <input type="radio" class="btn-check" name="options-base" id="option1" value="approval"
             autocomplete="off" (change)="getSingleTrend($event)" checked>

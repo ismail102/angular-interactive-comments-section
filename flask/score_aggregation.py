@@ -11,16 +11,15 @@ import json
 import os
 warnings.filterwarnings('ignore')
 from common_function import get_emotions, get_sentiment_dict
-
 file_name = 'fox-new-york-could-face'
 parent_path = 'C:\\Users\\ismai\\Documents\\Comment-Section-UI\\angular-interactive-comments-section\\flask\\data'
 
 emotions = list(get_emotions().values())
 trends = ["approval","toxic","obscene", 'insult', "threat", "hate", "offensive", "neither"]
 sentiment_dict = get_sentiment_dict()
-print(sentiment_dict)
+# print(sentiment_dict)
 sentiments = list(sentiment_dict.keys())
-print(sentiment_dict.keys())
+# print(sentiment_dict.keys())
 
 
 def find_indices(sublist, main_list):
@@ -353,6 +352,7 @@ def get_aggregated_tree_data(file, so_far_comments):
     final_tscore = Aggregation(tscores, method, 8)
 
     return final_escore, final_tscore, final_polarity
+    
 
 
 # Final Aggregated Results

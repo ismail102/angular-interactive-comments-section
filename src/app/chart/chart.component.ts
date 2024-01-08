@@ -131,7 +131,7 @@ export class ChartComponent implements OnInit {
   }
 
   getLineData(event?:any) {
-    // console.log("line Event: ", event);
+    // console.log("line Event: ", event.target.value);
     if (event != null && event != undefined) {
       this.apiService.getSingleTrend(event.target.value).subscribe(
         (data: any) => {
@@ -143,16 +143,17 @@ export class ChartComponent implements OnInit {
           let lineData = {
             labels: labels,
             datasets: [{
-              label: '',
+              label: event.target.value,
               data: data.singletrend.slice(0, this.currentProgressBarPoint.target.value),  //plum, pear,
-              backgroundColor: 'rgb(75, 192, 192)',
-              borderColor: this.colors1[this.trend_labels.indexOf(event.target.value)],
+              backgroundColor: this.colors1[this.trend_labels.indexOf(event.target.value)],
+              // borderColor: 'black',
               tension: 0.1, // Curve tension of the line (0 is linear)
               fill: false // Do not fill area under the line
             }]
           };
           this.chartLine.data = lineData;
           this.chartLine.update();
+          this.progressColor = this.colors1[this.trend_labels.indexOf(event.target.value)];
       });
     } else {
       // let labels = []
@@ -208,8 +209,13 @@ export class ChartComponent implements OnInit {
         y: {
           beginAtZero: true
         }
+      },
+      plugins: {
+        legend: {
+          display: false
+        }
       }
-    };
+    }
 
     // Create the bar chart
     this.chartBar = new Chart('MyChart1', {
@@ -249,16 +255,21 @@ export class ChartComponent implements OnInit {
       let color = this.colors0[idx]
       this.progressColor = color;
       this.tooltipText = 'Comment section is going towards ' + this.emotion_labels[idx];
+      this.chartBar.options.plugins.legend.display = false;
     }
     else if (this.type == 1) {
       let color = this.colors1[idx]
       this.progressColor = color;
       this.tooltipText = 'Comment section is going towards ' + this.trend_labels[idx];
+      this.chartBar.data.datasets[0].backgroundColor = this.colors1[idx];
+      this.chartBar.options.plugins.legend.display = false;
     }
     else {
       let color = this.colors2[idx]
       this.progressColor = color;
       this.tooltipText = 'Comment section is going towards ' + this.polarity_labels[idx];
+      this.chartBar.data.datasets[0].backgroundColor = this.colors2[idx];
+      this.chartBar.options.plugins.legend.display = false;
     }
   }
 
@@ -283,7 +294,7 @@ export class ChartComponent implements OnInit {
       // this.updateChart(this.data2);
     }
 
-    console.log("Progress Bar Point:", this.currentProgressBarPoint);
+    // console.log("Progress Bar Point:", this.currentProgressBarPoint);
     this.onchangeProgress(this.currentProgressBarPoint);
   }
 
@@ -319,10 +330,15 @@ export class ChartComponent implements OnInit {
 
   onChangeSelectOption(event: any) {
     console.log("Select: ", event.target.value)
+
     if(event.target.value == 1) {
       this.isLine = 0;
     } else {
       this.isLine = 1;
+      let data = Object.assign({});
+      data['target'] = {};
+      data['target']['value'] = 'approval';
+      this.getLineData(data);
     }
     // this.createChart(this.data0);
   }
