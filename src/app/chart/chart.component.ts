@@ -191,19 +191,18 @@ export class ChartComponent implements OnInit {
     };
 
     let lineData = {
-      labels: ['', '', '', '', ''],
+      labels: ['', '', '', '', '','', '', '', ''],
       datasets: [{
-        label: '',
-        data: [12, 19, 3, 5, 2],
-        backgroundColor: 'rgb(75, 192, 192)',
-        borderColor: 'black',
+        label: 'approval',
+        data: [],
+        backgroundColor: 'red',
         tension: 0.1, // Curve tension of the line (0 is linear)
         fill: false // Do not fill area under the line
       }]
     };
 
     // Bar chart configuration
-    let options = {
+    let options1 = {
       responsive: true,
       scales: {
         y: {
@@ -217,18 +216,28 @@ export class ChartComponent implements OnInit {
       }
     }
 
+    // Bar chart configuration
+    let options2 = {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+
     // Create the bar chart
     this.chartBar = new Chart('MyChart1', {
       type: 'bar',
       data: barData,
-      options: options
+      options: options1
     });
     this.progressColor = 'gray';
 
     this.chartLine = new Chart('MyChart2', {
       type: 'line',
       data: lineData,
-      options: options
+      options: options2
     });
   }
 
