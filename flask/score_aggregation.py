@@ -12,7 +12,7 @@ import os
 warnings.filterwarnings('ignore')
 from common_function import get_emotions, get_sentiment_dict
 file_name = 'fox-new-york-could-face'
-parent_path = 'C:\\Users\\ismai\\Documents\\Comment-Section-UI\\angular-interactive-comments-section\\flask\\data'
+parent_path = 'C:\\Users\\SIU856533724\\OneDrive - Southern Illinois University\\Research\\Paper\\Social Networks\\Trend Prediction\\Comment-Section-UI\\UI\\angular-interactive-comments-section\\flask\\data'
 
 emotions = list(get_emotions().values())
 trends = ["approval","toxic","obscene", 'insult', "threat", "hate", "offensive", "neither"]
